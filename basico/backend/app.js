@@ -16,15 +16,17 @@ app.post("/dados", async (req, res) => {
     const obj = JSON.parse(dados)
 
     for (let i = 0; i < obj.length; i++) {
-        if (req.body.email === obj[i].email) {
+        if (req.body.email === obj[i].email && req.body.senha === obj[i].senha) {
             return res.status(200).json({
-                mensagem: obj[0].email
+                mensagem: obj[i].email,
+                mensagem: obj[i].senha
             })
         }
     }
 
     return res.status(404).json({
-        mensagem: "E-mail não encontrado"
+        mensagem: obj[i].email,
+        mensagem: obj[i].senha
     })
 })
 

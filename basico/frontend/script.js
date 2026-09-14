@@ -1,10 +1,11 @@
 document.getElementById("enviar").addEventListener("click", async () => {
-    const valor = document.getElementById("email").value
+    const emailv = document.getElementById("email").value
+    const senhav = document.getElementById("senha").value
 
     const resposta = await fetch('http://localhost:3000/dados', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: valor })
+        body: JSON.stringify({ email: emailv, senha: senhav })
     })
 
     if (resposta.ok) {
