@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
     res.send("Bom dia")
 })
 
-app.post("/dados", async (req, res) => {
+app.post("/login", async (req, res) => {
     const dados = fs.readFileSync("dados.json", "utf-8")
     const obj = JSON.parse(dados)
 
@@ -27,6 +27,21 @@ app.post("/dados", async (req, res) => {
     return res.status(404).json({
         mensagem: obj[i].email,
         mensagem: obj[i].senha
+    })
+})
+
+app.post("/logon", async (req, res) => {
+    const obj = JSON.parse(fs.readFileSync("dados.json", "utf-8"))
+
+    obj.push({
+        email: req.body.email,
+        senha: req.body.senha
+    })
+
+    fs.writeFileSync("dados.json", JSON.stringify(obj, null, 2), "utf-8")
+
+    res.status(201).send({
+        mensagem: "Usuário cadastrado"
     })
 })
 
