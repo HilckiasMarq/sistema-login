@@ -33,12 +33,20 @@ app.post("/login", async (req, res) => {
 app.post("/logon", async (req, res) => {
     const obj = JSON.parse(fs.readFileSync("dados.json", "utf-8"))
 
+    for (let i = 0; i < obj.length; i++) {
+        if (obj[i].email === req.body.email) {
+            return res.status(501).send({
+                mensagem: "Email já existente"
+            })
+        }
+    }
+
     obj.push({
         email: req.body.email,
         senha: req.body.senha
     })
 
-    fs.writeFileSync("dados.json", JSON.stringify(obj, null, 2), "utf-8")
+    fs.writeFileSync("dados.json", JSON.stringify(obj, null, 4), "utf-8")
 
     res.status(201).send({
         mensagem: "Usuário cadastrado"
